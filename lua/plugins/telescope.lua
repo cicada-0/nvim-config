@@ -17,6 +17,7 @@ return {
         { "<leader>fd", "<cmd>Telescope diagnostics<cr>",            desc = "Diagnostics" },
         { "<leader>gc", "<cmd>Telescope git_commits<cr>",            desc = "Git Commits" },
         { "<leader>gs", "<cmd>Telescope git_status<cr>",             desc = "Git Status" },
+        { "<leader>th", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Browse Themes" },
     },
     opts = {
         defaults = {
