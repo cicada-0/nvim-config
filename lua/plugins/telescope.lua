@@ -17,7 +17,26 @@ return {
         { "<leader>fd", "<cmd>Telescope diagnostics<cr>",            desc = "Diagnostics" },
         { "<leader>gc", "<cmd>Telescope git_commits<cr>",            desc = "Git Commits" },
         { "<leader>gs", "<cmd>Telescope git_status<cr>",             desc = "Git Status" },
-        { "<leader>th", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Browse Themes" },
+        { "<leader>th", function()
+            -- Custom theme picker that saves your choice
+            require("telescope.builtin").colorscheme({
+                enable_preview = true,
+                attach_mappings = function(_, map)
+                    local actions = require("telescope.actions")
+                    local action_state = require("telescope.actions.state")
+                    map("i", "<CR>", function(prompt_bufnr)
+                        local selection = action_state.get_selected_entry()
+                        actions.close(prompt_bufnr)
+                        if selection then
+                            _G.set_theme(selection.value)
+                        end
+                    end)
+                    return true
+                end,
+            })
+        end,
+        desc = "Browse & Save Theme"
+      },
     },
     opts = {
         defaults = {
